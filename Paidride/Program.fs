@@ -5,6 +5,8 @@
 /// ==== this file for the          ====
 /// ==== assessment                 ====
 /// ====================================
+///                 ^
+///EDITING ALLOWED, BRIGHTSPACE ANNOUNCEMENTS
 open System
 open Microsoft.AspNetCore.Builder
 open Microsoft.AspNetCore.Hosting
@@ -18,7 +20,7 @@ open Paidride.Store
 
 let configureApp (app: IApplicationBuilder) =
     // Add Giraffe to the ASP.NET Core pipeline
-    app.UseGiraffe Web.routes
+    app.UseGiraffe HttpHandlers.requestHandlers
 
 let configureServices (services: IServiceCollection) =
     // Add Giraffe dependencies
