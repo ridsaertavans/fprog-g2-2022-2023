@@ -41,10 +41,5 @@ module Hours =
             { Date = get.Required.Field "date" Decode.datetime
               Amount = get.Required.Field "amount" Decode.int })
 
-/// A department has an Id (four uppercase letters followed by two digits),
-/// a Name (only letters and spaces, but cannot contain two or more consecutive spaces),
-/// and a list of subdepartments (which may be empty)
-type Department = { Id: string;
-                    Name: string;
-                    Subdepartments: List<Department> }
+
 
