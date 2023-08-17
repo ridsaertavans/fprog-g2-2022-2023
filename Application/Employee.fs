@@ -3,8 +3,12 @@
 open Model.Employee
 
 type IEmployeeDataAccess = 
-    abstract RetreiveAllEmployee : unit -> List<Employee>
+    abstract RetrieveAllEmployee : unit -> List<Employee>
+    abstract RetrieveEmployee: name: string -> Option<Employee>
 
-let retreiveAllEmployee (dataAccess : IEmployeeDataAccess) : List<Employee> =
-    dataAccess.RetreiveAllEmployee ()
+let retrieveAllEmployee (dataAccess : IEmployeeDataAccess) : List<Employee> =
+    dataAccess.RetrieveAllEmployee ()
+
+let retrieveEmployee (dataAccess : IEmployeeDataAccess) (name : string) : Option<Employee> =
+    dataAccess.RetrieveEmployee(name)
     

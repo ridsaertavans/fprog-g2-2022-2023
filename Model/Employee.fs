@@ -4,3 +4,4 @@
 // which always consists of four uppercase letters followed by two digits.
 type Employee =
     { Name: string; DepartmentId: string }
+    
