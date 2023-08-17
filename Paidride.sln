@@ -12,6 +12,10 @@ Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Service", "Service\Service.
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Model", "Model\Model.fsproj", "{32DCE624-07F0-49F2-993F-3872C95FFBD7}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Application", "Application\Application.fsproj", "{264BF478-4063-4D39-A7A5-EF94AC3670F4}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "DataAccess", "DataAccess\DataAccess.fsproj", "{5A183E16-8FC2-4473-B15D-A976DBE0AC38}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +34,14 @@ Global
 		{32DCE624-07F0-49F2-993F-3872C95FFBD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{32DCE624-07F0-49F2-993F-3872C95FFBD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{32DCE624-07F0-49F2-993F-3872C95FFBD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{264BF478-4063-4D39-A7A5-EF94AC3670F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{264BF478-4063-4D39-A7A5-EF94AC3670F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{264BF478-4063-4D39-A7A5-EF94AC3670F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{264BF478-4063-4D39-A7A5-EF94AC3670F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A183E16-8FC2-4473-B15D-A976DBE0AC38}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A183E16-8FC2-4473-B15D-A976DBE0AC38}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A183E16-8FC2-4473-B15D-A976DBE0AC38}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A183E16-8FC2-4473-B15D-A976DBE0AC38}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
