@@ -7,6 +7,9 @@ open Giraffe
 open Thoth.Json.Net
 open Thoth.Json.Giraffe
 
+//TODO: Dit moet weg
+open Employee
+
 
 let getEmployees: HttpHandler =
     fun next ctx ->
@@ -15,7 +18,7 @@ let getEmployees: HttpHandler =
 
             let employees =
                 InMemoryDatabase.all store.employees
-                |> Seq.map (fun (name, departmentId) -> { Employee.Name = name
+                |> Seq.map (fun (name, departmentId) -> { Name = name
                                                           DepartmentId = departmentId } )
 
             return! ThothSerializer.RespondJsonSeq employees Employee.encode next ctx

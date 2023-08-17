@@ -4,11 +4,8 @@ open Thoth.Json.Net
 open Thoth.Json.Giraffe
 open System;
 
-// Name is the employees name. Department is the department's identifier
-// which always consists of four uppercase letters followed by two digits.
-type Employee =
-    { Name: string; DepartmentId: string }
-
+open Employee
+open Hours
 
 module Employee =
     let encode: Encoder<Employee> =
@@ -21,12 +18,6 @@ module Employee =
         Decode.object (fun get ->
             { Name = get.Required.Field "name" Decode.string
               DepartmentId = get.Required.Field "department_id" Decode.string })
-
-/// Hours registered on a specific date
-///
-/// Amount cannot be negative or larger than 16
-/// Only the year, month and date of Date are used.
-type Hours = { Date: DateTime; Amount: int }
 
 module Hours =
     let encode: Encoder<Hours> =

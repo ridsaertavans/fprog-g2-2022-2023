@@ -6,9 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Database.fs" />
     <Compile Include="Model.fs" />
-    <Compile Include="Store.fs" />
     <Compile Include="Web.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
@@ -21,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DataAccess\DataAccess.fsproj" />
     <ProjectReference Include="..\Service\Service.fsproj" />
   </ItemGroup>
 
