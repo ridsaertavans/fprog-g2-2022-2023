@@ -8,6 +8,8 @@
   <ItemGroup>
 	<Compile Include="Database.fs" />
 	<Compile Include="Store.fs" />
+	<Compile Include="Hours.fs" />
+	<Compile Include="Employee.fs" />
   </ItemGroup>
 
 	<ItemGroup>

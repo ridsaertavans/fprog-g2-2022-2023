@@ -20,6 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DataAccess\DataAccess.fsproj" />
+    <ProjectReference Include="..\Model\Model.fsproj" />
     <ProjectReference Include="..\Service\Service.fsproj" />
   </ItemGroup>
 

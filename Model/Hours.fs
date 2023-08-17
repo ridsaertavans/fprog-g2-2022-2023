@@ -1,4 +1,4 @@
-﻿module Hours
+﻿module Model.Hours
 open System
 
 /// Hours registered on a specific date

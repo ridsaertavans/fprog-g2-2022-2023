@@ -8,7 +8,7 @@ open Thoth.Json.Net
 open Thoth.Json.Giraffe
 
 //TODO: Dit moet weg
-open Employee
+open Model.Employee
 
 
 let getEmployees: HttpHandler =

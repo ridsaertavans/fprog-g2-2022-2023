@@ -17,17 +17,21 @@ open Thoth.Json.Giraffe
 open Thoth.Json.Net
 open Paidride
 open Paidride.Store
+open Application.Employee
 
 let configureApp (app: IApplicationBuilder) =
     // Add Giraffe to the ASP.NET Core pipeline
-    //app.UseGiraffe HttpHandlers.requestHandlers
-    app.UseGiraffe Web.routes
+    app.UseGiraffe HttpHandlers.requestHandlers
+    //app.UseGiraffe Web.routes
+
+let store = Store();
 
 let configureServices (services: IServiceCollection) =
     // Add Giraffe dependencies
     services
         .AddGiraffe()
         .AddSingleton<Store>(Store())
+        .AddSingleton<IEmployeeDataAccess>(DataAccess.Employee.employeeAccess store)
         .AddSingleton<Json.ISerializer>(ThothSerializer(skipNullField = false, caseStrategy = CaseStrategy.CamelCase))
     |> ignore
 

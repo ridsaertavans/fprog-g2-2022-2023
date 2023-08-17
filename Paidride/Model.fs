@@ -4,8 +4,8 @@ open Thoth.Json.Net
 open Thoth.Json.Giraffe
 open System;
 
-open Employee
-open Hours
+open Model.Employee
+open Model.Hours
 
 module Employee =
     let encode: Encoder<Employee> =
