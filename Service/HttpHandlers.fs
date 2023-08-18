@@ -39,11 +39,23 @@ let overtimeFor (name: string) (next: HttpFunc) (ctx: HttpContext) =
         return! ThothSerializer.RespondJson result Encode.int next ctx
     }
 
+let registerHours (name: string) (next: HttpFunc) (ctx: HttpContext) =
+    task {
+        let! hours = ThothSerializer.ReadBody ctx Serialization.decodeHours
+
+        match hours with
+        | Ok hours ->
+            let dataAccess = ctx.GetService<IHoursDataAccess> ()
+            dataAccess.RegisterHoursForEmployee name hours
+            return! text "Hour registration succesfull" next ctx
+        | Error error -> return! RequestErrors.BAD_REQUEST error next ctx
+    }
+
 let requestHandlers : HttpHandler =
     choose [ GET >=> route "/employee" >=> getEmployees
              GET >=> routef "/employee/%s" getEmployee
              GET >=> routef "/employee/%s/hours" totalHoursFor
              GET >=> routef "/employee/%s/overtime" overtimeFor 
-             GET >=> route "" >=> text "Paidride is running"
-             //POST >=> routef "/employee/%s/hours" registerHours
+             GET >=> route "/" >=> text "Paidride is running"
+             POST >=> routef "/employee/%s/hours" registerHours
         ]

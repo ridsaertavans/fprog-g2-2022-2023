@@ -44,7 +44,7 @@ let getEmployee (name: string) : HttpHandler =
 //    fun next ctx ->
 //        task {
 
-//            let! hours = ThothSerializer.ReadBody ctx Hours.decode
+            //let! hours = ThothSerializer.ReadBody ctx Hours.decode
 
 //            match hours with
 //            | Error errorMessage -> return! RequestErrors.BAD_REQUEST errorMessage next ctx

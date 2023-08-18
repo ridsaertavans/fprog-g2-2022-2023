@@ -9,10 +9,10 @@ let (|HourCount|) (HourCount hourCount) = hourCount
 
 module HourCount =
     let make (rawHours : int) =
-        if rawHours >= 0 || rawHours <= 16 then
+        if rawHours >= 0 && rawHours <= 16 then
             Ok (HourCount rawHours)
         else 
-            Error ""
+            Error "Wrong value"
 
 /// Hours registered on a specific date
 ///
