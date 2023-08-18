@@ -1,3 +1,4 @@
+///Provides store of data on initial setup
 module Paidride.Store
 
 open System

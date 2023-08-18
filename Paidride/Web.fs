@@ -40,23 +40,23 @@ let getEmployee (name: string) : HttpHandler =
 
         }
 
-let registerHours (name: string) : HttpHandler =
-    fun next ctx ->
-        task {
+//let registerHours (name: string) : HttpHandler =
+//    fun next ctx ->
+//        task {
 
-            let! hours = ThothSerializer.ReadBody ctx Hours.decode
+//            let! hours = ThothSerializer.ReadBody ctx Hours.decode
 
-            match hours with
-            | Error errorMessage -> return! RequestErrors.BAD_REQUEST errorMessage next ctx
-            | Ok { Date = d ; Amount = a } ->
-                let store = ctx.GetService<Store>()
+//            match hours with
+//            | Error errorMessage -> return! RequestErrors.BAD_REQUEST errorMessage next ctx
+//            | Ok { Date = d ; Amount = a } ->
+//                let store = ctx.GetService<Store>()
 
-                InMemoryDatabase.insert (name, d) (name, d, a) store.hours
-                |> ignore
+//                InMemoryDatabase.insert (name, d) (name, d, a) store.hours
+//                |> ignore
 
 
-                return! text "OK" next ctx
-        }
+//                return! text "OK" next ctx
+//        }
 
 let totalHoursFor (name: string) : HttpHandler =
     fun next ctx ->
@@ -90,6 +90,6 @@ let overtimeFor (name: string) : HttpHandler =
 let routes: HttpHandler =
     choose [ GET >=> route "/employee" >=> getEmployees
              GET >=> routef "/employee/%s" getEmployee
-             POST >=> routef "/employee/%s/hours" registerHours
+             //POST >=> routef "/employee/%s/hours" registerHours
              GET >=> routef "/employee/%s/hours" totalHoursFor
              GET >=> routef "/employee/%s/overtime" overtimeFor ]

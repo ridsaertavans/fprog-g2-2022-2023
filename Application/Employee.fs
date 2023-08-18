@@ -1,4 +1,5 @@
-﻿module Application.Employee
+﻿/// Provides functionality (use-cases) for getting employee(s)
+module Application.Employee
 
 open Model.Employee
 
