@@ -3,6 +3,7 @@ module Application.Employee
 
 open Model.Employee
 
+/// Defines data access operations for Employee functionality.
 type IEmployeeDataAccess = 
     abstract RetrieveAllEmployee : unit -> List<Employee>
     abstract RetrieveEmployee: name: string -> Option<Employee>

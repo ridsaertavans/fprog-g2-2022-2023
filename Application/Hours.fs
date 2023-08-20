@@ -3,6 +3,7 @@ module Application.Hours
 
 open Model.Hours
 
+/// Defines data access operations for Hours functionality.
 type IHoursDataAccess = 
     abstract RegisterHoursForEmployee : string -> Hours -> unit
     abstract GetHoursForEmployee : string -> List<Hours>

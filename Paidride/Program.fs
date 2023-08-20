@@ -24,7 +24,6 @@ open Application.Department
 let configureApp (app: IApplicationBuilder) =
     // Add Giraffe to the ASP.NET Core pipeline
     app.UseGiraffe HttpHandlers.requestHandlers
-    //app.UseGiraffe Web.routes
 
 let store = Store();
 

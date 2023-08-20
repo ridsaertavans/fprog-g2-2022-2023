@@ -1,7 +1,6 @@
-﻿///HoursDataAccess implementing interface from Application
+﻿///DepartmentDataAccess implementing interface from Application
 module DataAccess.Department
 
-open Model.Department
 open Application.Department
 open Paidride.Database
 open Paidride.Store

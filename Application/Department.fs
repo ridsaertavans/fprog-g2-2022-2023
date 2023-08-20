@@ -1,7 +1,7 @@
-﻿module Application.Department
+﻿/// Provides functionality (use-cases) for Departments
+module Application.Department
 
-open Model.Department
-
+/// Defines data access operations for Department functionality.
 type IDepartmentDataAccess = 
     abstract RegisterHoursForEmployee : string -> string -> unit
 
