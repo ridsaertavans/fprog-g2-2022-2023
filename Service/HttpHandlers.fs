@@ -4,6 +4,7 @@ open Giraffe
 open Microsoft.AspNetCore.Http
 open Application.Employee
 open Application.Hours
+open Application.Department
 open Thoth.Json.Net
 open Thoth.Json.Giraffe
 
@@ -51,11 +52,24 @@ let registerHours (name: string) (next: HttpFunc) (ctx: HttpContext) =
         | Error error -> return! RequestErrors.BAD_REQUEST error next ctx
     }
 
+let updateDepartmentName (id: string) (next: HttpFunc) (ctx: HttpContext) =
+    task {
+        let! name = ThothSerializer.ReadBody ctx Serialization.decodeName
+
+        match name with
+        | Ok name ->
+            let dataAccess = ctx.GetService<IDepartmentDataAccess> ()
+            dataAccess.RegisterHoursForEmployee id name
+            return! text "Department name updated succesfull" next ctx
+        | Error error -> return! RequestErrors.BAD_REQUEST error next ctx
+    }
+
 let requestHandlers : HttpHandler =
-    choose [ GET >=> route "/employee" >=> getEmployees
+    choose [ GET >=> route "/" >=> text "Paidride is running"
+             GET >=> route "/employee" >=> getEmployees
              GET >=> routef "/employee/%s" getEmployee
              GET >=> routef "/employee/%s/hours" totalHoursFor
              GET >=> routef "/employee/%s/overtime" overtimeFor 
-             GET >=> route "/" >=> text "Paidride is running"
              POST >=> routef "/employee/%s/hours" registerHours
+             PATCH >=> routef "/department/%s/name" updateDepartmentName
         ]

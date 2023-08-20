@@ -19,6 +19,7 @@ open Paidride
 open Paidride.Store
 open Application.Employee
 open Application.Hours
+open Application.Department
 
 let configureApp (app: IApplicationBuilder) =
     // Add Giraffe to the ASP.NET Core pipeline
@@ -34,6 +35,7 @@ let configureServices (services: IServiceCollection) =
         .AddSingleton<Store>(Store())
         .AddSingleton<IEmployeeDataAccess>(DataAccess.Employee.employeeAccess store)
         .AddSingleton<IHoursDataAccess>(DataAccess.Hours.hoursDataAccess store)
+        .AddSingleton<IDepartmentDataAccess>(DataAccess.Department.departmentDataAccess store)
         .AddSingleton<Json.ISerializer>(ThothSerializer(skipNullField = false, caseStrategy = CaseStrategy.CamelCase))
     |> ignore
 

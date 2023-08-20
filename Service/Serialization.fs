@@ -3,6 +3,9 @@
 open Thoth.Json.Net
 open Model.Employee
 open Model.Hours
+open Model.Department
+open System.Text.Json
+open System.Collections.Generic
 
 let encodeEmployee: Encoder<Employee> =
     fun employee ->
@@ -35,3 +38,12 @@ let decodeHours: Decoder<Hours> =
     Decode.object (fun get ->
         { Date = get.Required.Field "date" Decode.datetime
           Amount = get.Required.Field "amount" amountDecoder })
+
+
+let decodeName: Decoder<string> =
+    Decode.string
+    |> Decode.andThen (fun s ->
+        match DepartmentName.make s with
+        | Ok departmentName -> Decode.succeed s
+        | Error error -> Decode.fail error
+    )
