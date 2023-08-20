@@ -6,7 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Serialization.fs" />
+    <Compile Include="Hours\Serialization.fs" />
+    <Compile Include="Hours\Hours.fs" />
+    <Compile Include="Employee\Serialization.fs" />
+    <Compile Include="Employee\Employee.fs" />
+    <Compile Include="Department\Serialization.fs" />
+    <Compile Include="Department\Department.fs" />
     <Compile Include="HttpHandlers.fs" />
   </ItemGroup>
 
