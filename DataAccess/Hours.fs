@@ -1,4 +1,4 @@
-﻿///HoursDataAccess implementing interface from Application
+﻿/// HoursDataAccess implementing interface from Application
 module DataAccess.Hours
 
 open Model.Hours
@@ -6,7 +6,8 @@ open Application.Hours
 open Paidride.Database
 open Paidride.Store
 
-let hoursDataAccess (store : Store) = { new IHoursDataAccess with
+/// Data access operations of the Hours component implemented using the simulated in-memory DB
+let hoursDataAccess (store: Store) = { new IHoursDataAccess with
     
     member this.RegisterHoursForEmployee(name : string) (hours: Hours): unit = 
         InMemoryDatabase.insert (name, hours.Date) (name, hours.Date, (let (HourCount amount) = hours.Amount in amount)) store.hours

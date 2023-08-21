@@ -1,4 +1,5 @@
-﻿module Paidride.Hours.Hours
+﻿/// This module exposes use-cases of the Hours component as an HTTP Web service using Giraffe
+module Paidride.Hours.Hours
 
 open Giraffe
 open Thoth.Json.Giraffe

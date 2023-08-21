@@ -1,4 +1,4 @@
-﻿///Provides types Department / discriminated unions
+﻿/// Provides types Department / discriminated unions
 module Model.Department
 
 open System.Text.RegularExpressions

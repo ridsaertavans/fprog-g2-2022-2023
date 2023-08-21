@@ -1,4 +1,5 @@
-﻿module Paidride.Employee.Employee
+﻿/// This module exposes use-cases of the Employee component as an HTTP Web service using Giraffe
+module Paidride.Employee.Employee
 
 open Giraffe
 open Thoth.Json.Giraffe

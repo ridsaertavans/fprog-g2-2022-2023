@@ -1,4 +1,4 @@
-﻿///DepartmentDataAccess implementing interface from Application
+﻿/// DepartmentDataAccess implementing interface from Application
 module DataAccess.Department
 
 open Application.Department
@@ -19,6 +19,7 @@ let getOvertimeHoursFromEmployee (store: Store) (name: string) =
     |>Seq.map (fun (_, _, amount) -> max 0 amount - 8)
     |>Seq.sum
 
+/// Data access operations of the Department component implemented using the simulated in-memory DB
 let getDepartment (store: Store) (id: string): Option<Department> = 
     let rec buildDepartmentTree (currentId: string): Option<Department> =
         match InMemoryDatabase.lookup currentId store.departments with
@@ -42,12 +43,12 @@ let getDepartment (store: Store) (id: string): Option<Department> =
 
 let departmentDataAccess (store : Store) = { new IDepartmentDataAccess with
     
-    member this.RegisterHoursForEmployee(id : string) (name: string): unit = 
+    member this.UpdateNameForDepartment(id : string) (name: string): unit = 
         InMemoryDatabase.update (id, (name)) store.departments
         |>ignore
 
-    member this.getHoursForDepartment(id : string): int =
-        let rec getHoursForDepartmentTree (department: Department): int =
+    member this.GetHoursForDepartment(id : string): int =
+        let rec GetHoursForDepartmentTree (department: Department): int =
             let departmentEmployeeHours =
                 store.employees
                 |> InMemoryDatabase.filter (fun (_, departmentId) -> departmentId = DepartmentId.toRawString department.Id)
@@ -56,7 +57,7 @@ let departmentDataAccess (store : Store) = { new IDepartmentDataAccess with
 
             let subdepartmentEmployeeHours = 
                 department.Subdepartments
-                |> Seq.map getHoursForDepartmentTree
+                |> Seq.map GetHoursForDepartmentTree
                 |> Seq.sum
 
             departmentEmployeeHours + subdepartmentEmployeeHours
@@ -65,9 +66,9 @@ let departmentDataAccess (store : Store) = { new IDepartmentDataAccess with
 
         match department with
         | None -> 0
-        | Some department -> getHoursForDepartmentTree department 
+        | Some department -> GetHoursForDepartmentTree department 
 
-    member this.getOvertimeHoursForDepartment(id : string): int =
+    member this.GetOvertimeHoursForDepartment(id : string): int =
         let rec getHoursForDepartmentTree (department: Department): int =
             let departmentEmployeeHours =
                 store.employees
