@@ -13,7 +13,19 @@ module DepartmentName =
         if m then
             Ok (DepartmentName rawName)
         else 
-            Error "Wrong value"
+            Error "Invalid departmentname"
+
+type DepartmentId = private | DepartmentId of string
+
+let (|DepartmentId|) (DepartmentId departmentId) = departmentId
+
+module DepartmentId =
+    let make (rawId : string) =
+        let m = common.matches (Regex("[A-Z]{4}\d{2}")) rawId //Regex 4 capital letters followed by 2 numbers
+        if m then
+            Ok (DepartmentId rawId)
+        else 
+            Error "Invalid id"
 
 /// A department has an Id (four uppercase letters followed by two digits),
 /// a Name (only letters and spaces, but cannot contain two or more consecutive spaces),
