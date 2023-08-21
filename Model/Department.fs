@@ -21,7 +21,7 @@ let (|DepartmentId|) (DepartmentId departmentId) = departmentId
 
 module DepartmentId =
     let make (rawId : string) =
-        let m = common.matches (Regex("[A-Z]{4}\d{2}")) rawId //Regex 4 capital letters followed by 2 numbers
+        let m = Validation.matches (Regex("[A-Z]{4}\d{2}")) rawId //Regex 4 capital letters followed by 2 numbers
         if m then
             Ok (DepartmentId rawId)
         else 
