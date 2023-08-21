@@ -22,7 +22,6 @@ open Paidride.Database
 ///
 /// departmentDepartments
 
-///TODO: Omzetten naar interface
 type Store() =
     member val employees: InMemoryDatabase<string, string * string> =
         [ "Jeroen", "AAAA13"
