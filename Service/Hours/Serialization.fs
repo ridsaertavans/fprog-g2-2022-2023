@@ -1,4 +1,5 @@
-﻿module Paidride.Hours.Serialization
+﻿///Serialization for Hours type
+module Paidride.Hours.Serialization
 
 open Thoth.Json.Net
 open Model.Hours

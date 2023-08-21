@@ -1,5 +1,5 @@
 ﻿///Module with common function for models
-module common
+module Validation
 
 open System.Text.RegularExpressions
 

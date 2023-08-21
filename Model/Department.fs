@@ -9,7 +9,7 @@ let (|DepartmentName|) (DepartmentName departmentName) = departmentName
 
 module DepartmentName =
     let make (rawName : string) =
-        let m = common.matches (Regex("^(?!.*  )[A-Za-z]+(?: [A-Za-z]+)*$")) rawName //Regex only letters and spaces, and no more then 2 consecutive spaces
+        let m = Validation.matches (Regex("^(?!.*  )[A-Za-z]+(?: [A-Za-z]+)*$")) rawName //Regex only letters and spaces, and no more then 2 consecutive spaces
         if m then
             Ok (DepartmentName rawName)
         else 
