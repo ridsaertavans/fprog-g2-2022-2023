@@ -6,7 +6,7 @@
 /// ==== assessment                 ====
 /// ====================================
 ///                 ^
-///EDITING ALLOWED, BRIGHTSPACE ANNOUNCEMENTS
+/// EDITING ALLOWED, BRIGHTSPACE ANNOUNCEMENTS
 open System
 open Microsoft.AspNetCore.Builder
 open Microsoft.AspNetCore.Hosting

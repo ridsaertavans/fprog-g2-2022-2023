@@ -1,9 +1,9 @@
-﻿module Paidride.Department.Department
+﻿/// This module exposes use-cases of the Department component as an HTTP Web service using Giraffe
+module Paidride.Department.Department
 
 open Giraffe
 open Microsoft.AspNetCore.Http
 open Application.Department
-open Model.Department
 open Thoth.Json.Giraffe
 open Thoth.Json.Net
 
@@ -15,7 +15,7 @@ let updateDepartmentName (id: string) (next: HttpFunc) (ctx: HttpContext) =
         match name with
         | Ok name ->
             let dataAccess = ctx.GetService<IDepartmentDataAccess> ()
-            dataAccess.RegisterHoursForEmployee id name
+            dataAccess.UpdateNameForDepartment id name
             return! text "Department name updated succesfull" next ctx
         | Error error -> return! RequestErrors.BAD_REQUEST error next ctx
     }
@@ -23,14 +23,14 @@ let updateDepartmentName (id: string) (next: HttpFunc) (ctx: HttpContext) =
 let getDepartmentHours (id: string) (next: HttpFunc) (ctx: HttpContext) =
     task {
         let dataAccess = ctx.GetService<IDepartmentDataAccess> ()
-        let hours = dataAccess.getHoursForDepartment id
+        let hours = dataAccess.GetHoursForDepartment id
         return! ThothSerializer.RespondJson hours Encode.int next ctx
     }
 
 let getDepartmentOvertimeHours (id: string) (next: HttpFunc) (ctx: HttpContext) =
     task {
         let dataAccess = ctx.GetService<IDepartmentDataAccess> ()
-        let hours = dataAccess.getOvertimeHoursForDepartment id
+        let hours = dataAccess.GetOvertimeHoursForDepartment id
         return! ThothSerializer.RespondJson hours Encode.int next ctx
     }
 

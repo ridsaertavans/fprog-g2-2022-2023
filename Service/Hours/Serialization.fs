@@ -1,10 +1,10 @@
-﻿///Serialization for Hours type
+﻿/// Serialization for Hours type
 module Paidride.Hours.Serialization
 
 open Thoth.Json.Net
 open Model.Hours
 
-let amountDecoder: Decoder<HourCount> = 
+let amountDecoder : Decoder<HourCount> = 
     Decode.int
     |> Decode.andThen (fun a ->
         match HourCount.make a with
@@ -12,7 +12,7 @@ let amountDecoder: Decoder<HourCount> =
         | Error error -> Decode.fail error
     )
 
-let decodeHours: Decoder<Hours> =
+let decodeHours : Decoder<Hours> =
     Decode.object (fun get ->
         { Date = get.Required.Field "date" Decode.datetime
           Amount = get.Required.Field "amount" amountDecoder })

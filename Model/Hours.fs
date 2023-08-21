@@ -1,4 +1,4 @@
-﻿///Provides types Hours / discriminated unions
+﻿/// Provides types Hours / discriminated unions
 module Model.Hours
 
 open System

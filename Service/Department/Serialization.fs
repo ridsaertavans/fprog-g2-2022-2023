@@ -1,9 +1,10 @@
-﻿module Serialization
+﻿/// Serialization for Department type
+module Serialization
 
 open Thoth.Json.Net
 open Model.Department
 
-let decodeName: Decoder<string> =
+let decodeName : Decoder<string> =
     Decode.string
     |> Decode.andThen (fun s ->
         match DepartmentName.make s with
