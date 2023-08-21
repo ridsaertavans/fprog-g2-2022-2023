@@ -15,7 +15,7 @@ module DepartmentName =
         else 
             Error "Invalid departmentname"
 
-type DepartmentId = private | DepartmentId of string
+type DepartmentId = DepartmentId of string
 
 let (|DepartmentId|) (DepartmentId departmentId) = departmentId
 
@@ -27,10 +27,13 @@ module DepartmentId =
         else 
             Error "Invalid id"
 
+    let toRawString (DepartmentId id) = id
 /// A department has an Id (four uppercase letters followed by two digits),
 /// a Name (only letters and spaces, but cannot contain two or more consecutive spaces),
 /// and a list of subdepartments (which may be empty)
 
-type Department = { Id: string;
+
+
+type Department = { Id: DepartmentId;
                     Name: string;
                     Subdepartments: List<Department> }

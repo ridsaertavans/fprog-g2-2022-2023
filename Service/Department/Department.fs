@@ -5,6 +5,7 @@ open Microsoft.AspNetCore.Http
 open Application.Department
 open Model.Department
 open Thoth.Json.Giraffe
+open Thoth.Json.Net
 
 
 let updateDepartmentName (id: string) (next: HttpFunc) (ctx: HttpContext) =
@@ -21,14 +22,10 @@ let updateDepartmentName (id: string) (next: HttpFunc) (ctx: HttpContext) =
 
 let getDepartmentHours (id: string) (next: HttpFunc) (ctx: HttpContext) =
     task {
-        match DepartmentId.make id with
-        | Ok id ->
-            let dataAccess = ctx.GetService<IDepartmentDataAccess> ()
-            //dataAccess.RegisterHoursForEmployee id
-            return! text "Success getdepartmenthours" next ctx
-        | Error error -> return! RequestErrors.BAD_REQUEST error next ctx
+        let dataAccess = ctx.GetService<IDepartmentDataAccess> ()
+        let hours = dataAccess.getHoursForDepartment id
+        return! ThothSerializer.RespondJson hours Encode.int next ctx
     }
-
 
 let handlers : HttpHandler =
     choose [

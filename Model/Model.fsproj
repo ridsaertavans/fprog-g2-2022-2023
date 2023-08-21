@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="Common.fs" />
+	  <Compile Include="Common.fs" />
     <Compile Include="Department.fs" />
     <Compile Include="Hours.fs" />
     <Compile Include="Employee.fs" />

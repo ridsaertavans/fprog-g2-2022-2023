@@ -6,11 +6,33 @@ open Model.Department
 open Paidride.Database
 open Paidride.Store
 
-let getHoursFromEmployee (store : Store) (name : string) =
+
+let getHoursFromEmployee (store: Store) (name: string) =
     store.hours
     |>InMemoryDatabase.filter (fun (n, _, _) -> n = name)
     |>Seq.map (fun (_, _, amount) -> amount)
     |>Seq.sum
+
+let getDepartment (store: Store) (id: string): Option<Department> = 
+    let rec buildDepartmentTree (currentId: string): Option<Department> =
+        match InMemoryDatabase.lookup currentId store.departments with
+        | Some (departmentId, departmentName, _) ->
+            let subdepartments =
+                InMemoryDatabase.filter (fun (_, _, parent) -> 
+                    match parent with 
+                    | Some parentId -> parentId = departmentId
+                    | _ -> false
+                    ) store.departments
+                |> Seq.map (fun (subdepartmentId, _, _) -> subdepartmentId)
+                |> Seq.choose buildDepartmentTree
+                |> Seq.toList
+
+            Some { Id = (DepartmentId departmentId)
+                   Name = departmentName
+                   Subdepartments = subdepartments }
+        | None -> None
+
+    buildDepartmentTree id
 
 let departmentDataAccess (store : Store) = { new IDepartmentDataAccess with
     
@@ -19,19 +41,24 @@ let departmentDataAccess (store : Store) = { new IDepartmentDataAccess with
         |>ignore
 
     member this.getHoursForDepartment(id : string): int =
-        let rec retreiveHoursForDepartmentTree (department: Department): int =
+        let rec getHoursForDepartmentTree (department: Department): int =
             let departmentEmployeeHours =
                 store.employees
-                |> InMemoryDatabase.filter (fun (_, departmentId) -> (DepartmentId departmentId) = departmentId.Id)
+                |> InMemoryDatabase.filter (fun (_, departmentId) -> departmentId = DepartmentId.toRawString department.Id)
                 |> Seq.map (fun (employeeName, _) -> getHoursFromEmployee store employeeName)
                 |> Seq.sum
 
             let subdepartmentEmployeeHours = 
                 department.Subdepartments
-                |> Seq.map retreiveHoursForDepartmentTree
+                |> Seq.map getHoursForDepartmentTree
                 |> Seq.sum
 
             departmentEmployeeHours + subdepartmentEmployeeHours
         
-        this.getHoursForDepartment id
+        let department = getDepartment store id
+
+        match department with
+        | None -> 0
+        | Some department -> getHoursForDepartmentTree department
+         
     }
