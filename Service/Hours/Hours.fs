@@ -36,8 +36,10 @@ let registerHours (name: string) (next: HttpFunc) (ctx: HttpContext) =
 
 let handlers : HttpHandler =
     choose [
-        GET >=> routef "/employee/%s/hours" totalHoursFor
-        GET >=> routef "/employee/%s/overtime" overtimeFor 
+        GET >=> choose [
+            routef "/employee/%s/hours" totalHoursFor
+            routef "/employee/%s/overtime" overtimeFor 
+        ]
         POST >=> routef "/employee/%s/hours" registerHours
     ]
     

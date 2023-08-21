@@ -27,8 +27,19 @@ let getDepartmentHours (id: string) (next: HttpFunc) (ctx: HttpContext) =
         return! ThothSerializer.RespondJson hours Encode.int next ctx
     }
 
+let getDepartmentOvertimeHours (id: string) (next: HttpFunc) (ctx: HttpContext) =
+    task {
+        let dataAccess = ctx.GetService<IDepartmentDataAccess> ()
+        let hours = dataAccess.getOvertimeHoursForDepartment id
+        return! ThothSerializer.RespondJson hours Encode.int next ctx
+    }
+
 let handlers : HttpHandler =
     choose [
         PATCH >=> routef "/department/%s/name" updateDepartmentName
-        GET >=> routef "/department/%s/hours" getDepartmentHours
+        GET >=> choose [
+            routef "/department/%s/hours" getDepartmentHours
+            routef "/department/%s/overtime" getDepartmentOvertimeHours
+        ]
+        
     ]

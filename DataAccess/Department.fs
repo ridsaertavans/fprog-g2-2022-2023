@@ -13,6 +13,12 @@ let getHoursFromEmployee (store: Store) (name: string) =
     |>Seq.map (fun (_, _, amount) -> amount)
     |>Seq.sum
 
+let getOvertimeHoursFromEmployee (store: Store) (name: string) =
+    store.hours
+    |>InMemoryDatabase.filter (fun (n, _, _) -> n = name)
+    |>Seq.map (fun (_, _, amount) -> max 0 amount - 8)
+    |>Seq.sum
+
 let getDepartment (store: Store) (id: string): Option<Department> = 
     let rec buildDepartmentTree (currentId: string): Option<Department> =
         match InMemoryDatabase.lookup currentId store.departments with
@@ -28,7 +34,7 @@ let getDepartment (store: Store) (id: string): Option<Department> =
                 |> Seq.toList
 
             Some { Id = (DepartmentId departmentId)
-                   Name = departmentName
+                   Name = (DepartmentName departmentName)
                    Subdepartments = subdepartments }
         | None -> None
 
@@ -59,6 +65,26 @@ let departmentDataAccess (store : Store) = { new IDepartmentDataAccess with
 
         match department with
         | None -> 0
-        | Some department -> getHoursForDepartmentTree department
-         
-    }
+        | Some department -> getHoursForDepartmentTree department 
+
+    member this.getOvertimeHoursForDepartment(id : string): int =
+        let rec getHoursForDepartmentTree (department: Department): int =
+            let departmentEmployeeHours =
+                store.employees
+                |> InMemoryDatabase.filter (fun (_, departmentId) -> departmentId = DepartmentId.toRawString department.Id)
+                |> Seq.map (fun (employeeName, _) -> getOvertimeHoursFromEmployee store employeeName)
+                |> Seq.sum
+
+            let subdepartmentEmployeeHours = 
+                department.Subdepartments
+                |> Seq.map getHoursForDepartmentTree
+                |> Seq.sum
+
+            departmentEmployeeHours + subdepartmentEmployeeHours
+        
+        let department = getDepartment store id
+
+        match department with
+        | None -> 0
+        | Some department -> getHoursForDepartmentTree department 
+}

@@ -25,7 +25,9 @@ let getEmployee (name: string) (next: HttpFunc) (ctx: HttpContext) =
 
 let handlers : HttpHandler =
     choose [
-        GET >=> route "/employee" >=> getEmployees
-        GET >=> routef "/employee/%s" getEmployee
+        GET >=> choose [
+            route "/employee" >=> getEmployees
+            routef "/employee/%s" getEmployee
+        ]
     ]
     

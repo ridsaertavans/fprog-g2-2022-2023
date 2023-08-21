@@ -1,4 +1,4 @@
-﻿///Module with common function for models
+﻿///Module with validation function
 module Validation
 
 open System.Text.RegularExpressions

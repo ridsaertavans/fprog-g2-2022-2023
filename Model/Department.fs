@@ -1,9 +1,9 @@
-﻿///Provides types Department / DepartmentName
+﻿///Provides types Department / discriminated unions
 module Model.Department
 
 open System.Text.RegularExpressions
 
-type DepartmentName = private | DepartmentName of string
+type DepartmentName = DepartmentName of string
 
 let (|DepartmentName|) (DepartmentName departmentName) = departmentName
 
@@ -28,12 +28,10 @@ module DepartmentId =
             Error "Invalid id"
 
     let toRawString (DepartmentId id) = id
+
 /// A department has an Id (four uppercase letters followed by two digits),
 /// a Name (only letters and spaces, but cannot contain two or more consecutive spaces),
 /// and a list of subdepartments (which may be empty)
-
-
-
 type Department = { Id: DepartmentId;
-                    Name: string;
+                    Name: DepartmentName;
                     Subdepartments: List<Department> }
