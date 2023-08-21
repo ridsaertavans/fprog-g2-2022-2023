@@ -13,7 +13,7 @@ module DepartmentName =
         if m then
             Ok (DepartmentName rawName)
         else 
-            Error "Invalid departmentname"
+            Error "Invalid departmentname, only letters and spaces, but cannot contain two or more consecutive spaces"
 
 type DepartmentId = DepartmentId of string
 
