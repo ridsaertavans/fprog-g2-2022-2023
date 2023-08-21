@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="Hours\Serialization.fs" />
+    <Compile Include="Hours\Hours.fs" />
+    <Compile Include="Employee\Serialization.fs" />
+    <Compile Include="Employee\Employee.fs" />
+    <Compile Include="Department\Serialization.fs" />
+    <Compile Include="Department\Department.fs" />
+    <Compile Include="HttpHandlers.fs" />
+  </ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Giraffe" Version="6.0.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="Ply" Version="0.3.1" />
+		<PackageReference Include="Thoth.Json.Giraffe" Version="5.0.0" />
+		<ProjectReference Include="..\Application\Application.fsproj" />
+		<PackageReference Update="FSharp.Core" Version="7.0.200" />
+	</ItemGroup>
+</Project>
